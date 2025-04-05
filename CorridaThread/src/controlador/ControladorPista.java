@@ -24,6 +24,7 @@ public class ControladorPista implements ActionListener{
 		if(e.getSource() == p.getConfirm()) {
 			p.getConfirm().setEnabled(false);
 			p.addCorredores((Integer) p.getQuant().getValue(), tamanhoPista);
+			p.add(p.getBG());
 		}
 	}
 	

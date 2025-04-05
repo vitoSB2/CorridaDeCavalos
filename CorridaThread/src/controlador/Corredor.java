@@ -22,7 +22,7 @@ public class Corredor implements Runnable{
 
 		Random random = new Random();
         
-        while (distanciaPercorrida < distanciaTotal && !ControladorPista.getCorridaFinalizada()) {
+        while (distanciaPercorrida <= distanciaTotal && !ControladorPista.getCorridaFinalizada()) {
             int passo = random.nextInt(4) + 3;
             distanciaPercorrida += passo * 8;
             corredor.setLocation(corredor.getX() + passo*8, corredor.getY());
