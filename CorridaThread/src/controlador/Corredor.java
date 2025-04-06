@@ -4,18 +4,21 @@ import java.util.Random;
 
 import javax.swing.JLabel;
 
+import visual.Pista;
+
 public class Corredor implements Runnable{
 
-	int distanciaTotal, distanciaPercorrida = 0;
+	int nome, distanciaTotal, distanciaPercorrida = 0;
 	boolean corridaFinalizada = ControladorPista.corridaFinalizada;
-	String nome;
 	JLabel corredor, tv;
+	Pista p;
 	
-	public Corredor(int distanciaTotal, String nome, JLabel corredor, JLabel tv) {
+	public Corredor(int distanciaTotal, int nome, JLabel corredor, JLabel tv, Pista p) {
 		this.distanciaTotal = distanciaTotal;
 		this.nome = nome;
 		this.corredor = corredor;
 		this.tv = tv;
+		this.p = p;
 	}
 	
 	public void run() {
@@ -23,22 +26,33 @@ public class Corredor implements Runnable{
 		Random random = new Random();
         
         while (distanciaPercorrida <= distanciaTotal && !ControladorPista.getCorridaFinalizada()) {
-            int passo = random.nextInt(4) + 3;
+            int passo = random.nextInt(4);
             distanciaPercorrida += passo * 8;
             corredor.setLocation(corredor.getX() + passo*8, corredor.getY());
             
             try {
-                Thread.sleep(200); // Simula o tempo de corrida
+                Thread.sleep(150);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
 
             if (distanciaPercorrida >= distanciaTotal && !ControladorPista.getCorridaFinalizada()) {
                 ControladorPista.setCorridaFinalizada(true);
-                tv.setText(nome + " venceu a corrida!");
+                tv.setText("Cavalo " + nome + " venceu a corrida!");
             }
         }
-		
+        
+        try {
+            Thread.sleep(4000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        
+        p.remove(corredor);
+        p.repaint();
+        
+        tv.setText("");
+        p.getConfirm().setEnabled(true);
 	}
 
 }

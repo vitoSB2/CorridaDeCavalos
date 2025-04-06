@@ -58,11 +58,9 @@ public class Pista extends JPanel{
 	public JLabel getPrompt() {
 		if(prompt == null) {
 			prompt = new JLabel();
-			prompt.setBackground(SystemColor.controlHighlight);
 			prompt.setForeground(new Color(10, 10, 10));
-			prompt.setHorizontalAlignment(SwingConstants.CENTER);
 			prompt.setFont(new Font("Pokemon Fire Red", Font.PLAIN, 40));
-			prompt.setText("Selecione uma quantidade de corredores:");
+			prompt.setText("Selecione uma quantidade de cavalos:");
 			prompt.setBounds(100, 20, 505, 40);
 		}
 		return prompt;
@@ -72,7 +70,7 @@ public class Pista extends JPanel{
 		if(textoVitoria == null) {
 			textoVitoria = new JLabel();
 			textoVitoria.setFont(new Font("Pokemon Fire Red", Font.PLAIN, 52));
-			textoVitoria.setBounds(500, 100, 505, 40);
+			textoVitoria.setBounds(500, 90, 505, 40);
 			textoVitoria.setForeground(new Color(255, 255, 255));
 		}
 		return textoVitoria;
@@ -83,7 +81,7 @@ public class Pista extends JPanel{
 			quant = new JSpinner();
 			quant.setForeground(new Color(0, 0, 0));
 			quant.setBackground(new Color(0, 51, 153));
-			quant.setModel(new SpinnerNumberModel(0, 0, 8, 1));
+			quant.setModel(new SpinnerNumberModel(1, 1, 8, 1));
 			quant.setBounds(100, 60, 100, 40);
 			quant.setFont(new Font("Pokemon Fire Red", Font.PLAIN, 30));
 		}
@@ -131,15 +129,14 @@ public class Pista extends JPanel{
         return resizedImage;
     }
 	
-	public void addCorredores(int quantCorredores, int tamanhoPista) {
-		
+	public void addCorredores(int quantCorredores, int tamanhoPista){
 		for(int i = 0; i<quantCorredores; i++) {
 			JLabel corredor = new JLabel(sprites[i][0]);
 			corredor.setHorizontalAlignment(SwingConstants.CENTER);
 			corredor.setBounds(40, 250+i*65, 80, 60);
 			this.add(corredor);
 			
-			Thread corredorThread = new Thread(new Corredor(tamanhoPista, "Corredor " + (i+1), corredor, textoVitoria));
+			Thread corredorThread = new Thread(new Corredor(tamanhoPista, (i+1), corredor, textoVitoria, this));
 			corredorThread.start();
 			
 			Thread animacaoThread = new Thread(new Animation(sprites, corredor, i));

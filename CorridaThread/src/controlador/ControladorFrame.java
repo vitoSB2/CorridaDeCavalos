@@ -13,6 +13,7 @@ public class ControladorFrame {
 		f = new Frame();
 		p = new Pista();
 		f.setContentPane(p);
+		f.setResizable(false);
 		cp = new ControladorPista(p);
 	}
 
