@@ -6,13 +6,15 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import states.Jogo;
+
 public class Mapa {
 	
-	public BufferedImage bg = null;
+	public BufferedImage bg, mensagem;
 	public BufferedImage[][] sprites;
 	public BufferedImage[] mensagemVitoria;
 	Cavalo[] cavalos;
-	int quant = 8;
+	int quant = 8, count = 0;
 	
 	public Mapa() {
 		setImage("/sprites/bg3.png", bg);
@@ -38,6 +40,15 @@ public class Mapa {
 		for(int i=0; i<quant; i++) {
 			cavalos[i].render(g);
 		}
+		
+		drawMensagem(g);
+	}
+	
+	private void drawMensagem(Graphics g) {
+		if(Jogo.corridaFinalizada)
+			if(count >= 30) g.drawImage(mensagem, 305, 750, 690, 42, null);
+			if(count == 59) count = 0;
+			else count++;
 	}
 	
 	public void setImage(String caminho, BufferedImage imagem) {
@@ -49,9 +60,11 @@ public class Mapa {
 	}
 	
 	public void criarSprites() {
-		BufferedImage imageAtlas = null;
+		BufferedImage imageAtlas = null, imageAtlas2 = null;
 		try {
 			imageAtlas = ImageIO.read(getClass().getResourceAsStream("/sprites/horses_atlas.png"));
+			imageAtlas2 = ImageIO.read(getClass().getResourceAsStream("/sprites/mensagemVitoria.png"));
+			mensagem = ImageIO.read(getClass().getResourceAsStream("/sprites/jogo_mensagem.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -62,16 +75,10 @@ public class Mapa {
 				sprites[i][j] = imageAtlas.getSubimage(j*32, i*24, 32, 24);
 			}
 		
-		try {
-			imageAtlas = ImageIO.read(getClass().getResourceAsStream("/sprites/mensagemVitoria.png"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
 		mensagemVitoria = new BufferedImage[8];
 		
 		for(int j=0; j<8; j++) {
-			mensagemVitoria[j] = imageAtlas.getSubimage(0, j*12, 186, 12);
+			mensagemVitoria[j] = imageAtlas2.getSubimage(0, j*12, 186, 12);
 		}
 	}
 
