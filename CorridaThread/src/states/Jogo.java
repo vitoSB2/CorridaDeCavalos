@@ -51,8 +51,8 @@ public class Jogo implements StateMethods{
 		
 	}
 
-	public void reset() {
-		mapa.reset();
+	public void reset(int index) {
+		mapa.reset(index);
 		corridaFinalizada = false;
 	}
 

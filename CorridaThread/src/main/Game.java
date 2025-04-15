@@ -33,8 +33,8 @@ public class Game implements Runnable{
 		gameThread.start();
 	}
 	
-	public void reset() {
-		jogo.reset();
+	public void reset(int index) {
+		jogo.reset(index);
 	}
 	
 	public void update() {

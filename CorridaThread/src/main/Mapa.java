@@ -21,7 +21,7 @@ public class Mapa {
 	}
 	
 	private void criarCavalos() {
-		cavalos = new Cavalo[quant];
+		cavalos = new Cavalo[8];
 		for(int i=0; i<quant; i++) {
 			cavalos[i] = new Cavalo(sprites, i, mensagemVitoria);
 		}
@@ -75,7 +75,8 @@ public class Mapa {
 		}
 	}
 
-	public void reset() {
+	public void reset(int index) {
+		quant = index+2;
 		for(int i=0; i<quant; i++) {
 			cavalos[i].reset();
 		}
