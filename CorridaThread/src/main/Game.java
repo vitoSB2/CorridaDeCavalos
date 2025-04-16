@@ -1,6 +1,14 @@
 package main;
 
 import java.awt.Graphics;
+import java.io.IOException;
+import java.net.URL;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 import states.GameState;
 import states.Jogo;
@@ -88,6 +96,25 @@ public class Game implements Runnable{
 
 	public Menu getMenu() {
 		return menu;
+	}
+	
+	public static Clip play(String nomeDoAudio) {
+		try {
+			URL audioUrl = Game.class.getResource(nomeDoAudio + ".wav");
+			if (audioUrl == null) {
+				System.err.println("O arquivo de áudio não foi encontrado: " + nomeDoAudio);
+				return null;
+			}
+			AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioUrl);
+			Clip audioClip = AudioSystem.getClip();
+			audioClip.open(audioStream);
+			audioClip.start();
+			
+			return audioClip;
+		} catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
+			ex.printStackTrace();
+		}
+		return null;
 	}
 
 }

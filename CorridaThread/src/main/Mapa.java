@@ -17,7 +17,7 @@ public class Mapa {
 	int quant = 8, count = 0;
 	
 	public Mapa() {
-		setImage("/sprites/bg3.png", bg);
+		setImage();
 		criarSprites();
 		criarCavalos();
 	}
@@ -51,9 +51,9 @@ public class Mapa {
 			else count++;
 	}
 	
-	public void setImage(String caminho, BufferedImage imagem) {
+	public void setImage() {
 		try {
-			bg = ImageIO.read(getClass().getResourceAsStream(caminho));
+			bg = ImageIO.read(getClass().getResourceAsStream("/sprites/bg3.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

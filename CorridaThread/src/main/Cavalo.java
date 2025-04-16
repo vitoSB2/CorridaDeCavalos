@@ -9,6 +9,7 @@ import java.util.Random;
 import javax.imageio.ImageIO;
 
 import states.Jogo;
+import states.Menu;
 
 public class Cavalo {
 	
@@ -58,6 +59,8 @@ public class Cavalo {
 	public void verificarVitoria(Graphics g) {
 		if(y >= 1100) {
 			Jogo.corridaFinalizada = true;
+			Menu.musicaCorrida.stop();
+			Menu.musicaMenu.start();
 			g.drawImage(mensagemVitoria[numCavalo], 371, 80, 558, 36, null);
 		}
 	}

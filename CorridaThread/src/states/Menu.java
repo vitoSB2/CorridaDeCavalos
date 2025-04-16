@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.Clip;
 
 import main.Game;
 
@@ -16,10 +17,12 @@ public class Menu implements StateMethods{
 	BufferedImage bg, logo;
 	BufferedImage[] mensagens;
 	BufferedImage[][] numeros;
+	public static Clip musicaCorrida, musicaMenu;
 	int x = 0, x2 = 1300, index = 0, count = 0;
 	public Menu(Game game) {
 		this.game = game;
 		setImages();
+		musicaMenu = Game.play("/menu/menu_musica");
 	}
 	
 	public void update() {
@@ -65,6 +68,8 @@ public class Menu implements StateMethods{
 		
 		if(e.getKeyCode() == KeyEvent.VK_ENTER) {
 			GameState.gameState = GameState.JOGO;
+			musicaMenu.stop();
+			musicaCorrida = Game.play("/sprites/corrida_musica");
 			game.reset(index);
 		}
 		
@@ -98,12 +103,12 @@ public class Menu implements StateMethods{
 	
 	public void movimentoBg() {
 		if(x < (-6180)) x = 0;
-		else x-= 5;
+		else x-= 3;
 		
 
 		if(x <= -4880) {
 			if(x2 < 0) x2 = 1300;
-			else x2-= 5;
+			else x2-= 3;
 		}
 	}
 
