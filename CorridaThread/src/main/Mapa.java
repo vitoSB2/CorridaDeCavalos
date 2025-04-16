@@ -46,7 +46,7 @@ public class Mapa {
 	
 	private void drawMensagem(Graphics g) {
 		if(Jogo.corridaFinalizada)
-			if(count >= 30) g.drawImage(mensagem, 305, 750, 690, 42, null);
+			if(count >= 30) g.drawImage(mensagem, 397, 750, 506, 31, null);
 			if(count == 59) count = 0;
 			else count++;
 	}
